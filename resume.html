@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>จิรโชติ แสงพิทักษ์ — Programmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+Thai:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --accent: #00ff88;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --border: #2a2a38;
+    --mono: 'Space Mono', monospace;
+    --thai: 'Noto Sans Thai', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--thai);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 64px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .header-left {}
+
+  .profile {
+    display: flex;
+  }
+
+  .name {
+    font-family: var(--thai);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .name span {
+    color: var(--accent);
+  }
+
+  .role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.25);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  .role-badge::before {
+    content: '▶';
+    font-size: 0.5rem;
+  }
+
+  /* Contact block */
+  .contact-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    min-width: 230px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .contact-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+
+  .contact-item:last-child { margin-bottom: 0; }
+
+  .contact-icon {
+    font-size: 0.9rem;
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--accent);
+  }
+
+  .contact-item a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover { text-decoration: underline; }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .section:nth-child(2) { animation-delay: 0.15s; }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  .section:nth-child(4) { animation-delay: 0.25s; }
+  .section:nth-child(5) { animation-delay: 0.3s; }
+  .section:nth-child(6) { animation-delay: 0.35s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-group {
+    margin-bottom: 32px;
+  }
+
+  .exp-group-title {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent3);
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .exp-group-title::before {
+    content: '//';
+    color: var(--muted);
+  }
+
+  .exp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    transition: border-left-color 0.2s, transform 0.2s;
+  }
+
+  .exp-card:hover {
+    border-left-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .exp-card p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #c8c8d8;
+  }
+
+  .exp-card .highlight {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .tech-tag {
+    display: inline-block;
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: #a78bfa;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin: 4px 3px 0 0;
+  }
+
+  .exp-company {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: var(--mono);
+    margin-bottom: 6px;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at top right, rgba(0,255,136,0.08), transparent 70%);
+  }
+
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .edu-school {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .edu-field {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ── TECH STACK ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .tech-category {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  .tech-category-name {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tech-category:nth-child(1) .tech-category-name { color: #60a5fa; }
+  .tech-category:nth-child(2) .tech-category-name { color: #34d399; }
+  .tech-category:nth-child(3) .tech-category-name { color: #f97316; }
+
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: #c8c8d8;
+  }
+
+  .tech-item::before {
+    content: '▸';
+    font-size: 0.6rem;
+    color: var(--muted);
+  }
+
+  /* ── CERT ── */
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cert-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 20px;
+    transition: border-color 0.2s;
+  }
+
+  .cert-card:hover {
+    border-color: rgba(0,255,136,0.3);
+  }
+
+  .cert-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .cert-name {
+    flex: 1;
+    font-size: 0.88rem;
+  }
+
+  .cert-level {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+
+  .profile-pic {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position:  bottom, 50% 20%;  /* ← เลื่อนจุดโฟกัส: top, center, bottom, 50% 20% */
+    transform: scale(1.1);         /* ← zoom เข้า (1.0 = ปกติ, 1.2 = zoom 20%) */
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(0,255,136,0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .header { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr 1fr; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+        <div class="profile">
+        <img class="profile-pic" src="https://i.ibb.co/mFSgc9kc/PSX-20251006-232624.jpg" alt="จิรโชติ แสงพิทักษ์" 
+          style="
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            margin-bottom: 16px;
+            display: block;
+            
+        ">
+        <h1 class="name" style="margin-top: 20px; margin-left: 20px;">จิรโชติ<br><span>แสงพิทักษ์</span></h1>
+      </div>
+      <div class="role-badge" style=" margin-left: 20px;">PROGRAMMER</div>
+    </div>
+    <div class="contact-block">
+      <div class="contact-title">// contact</div>
+      <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <span>092-829-3024</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <a href="mailto:ttkk0062@gmail.com">ttkk0062@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🐙</span>
+        <a href="https://github.com/SEROs0" target="_blank">Github</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <span>ต.ท่าเสา อ.กระทุ่มแบน จ.สมุทรสาคร 74110</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Experience</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-group">
+      <div class="exp-group-title">Projects</div>
+
+      <div class="exp-card">
+        <p>ออกแบบและพัฒนา<span class="highlight">เว็บไซต์รวมถึงแอปพลิเคชัน</span>ต่างๆ ในระหว่างเรียนตั้งแต่ชั้นปีที่ 2 ถึงปีที่ 3</p>
+        <div>
+          <span class="tech-tag">Web Design</span>
+          <span class="tech-tag">App Development</span>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <p>เรียนรู้และปฏิบัติการโปรแกรม <span class="highlight">Microcontroller (Arduino, ESP32)</span> ปี 3</p>
+        <p style="font-size:0.78rem; color: var(--muted); margin-top:4px;">โปรเจค: สัญญาณเตือนไฟ</p>
+        <div>
+          <span class="tech-tag">Arduino</span>
+          <span class="tech-tag">ESP32</span>
+          <span class="tech-tag">IoT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-group">
+      <div class="exp-group-title">Internship</div>
+
+      <div class="exp-card">
+        <div class="exp-company">SCMS Technology · 4 เดือน</div>
+        <p>ฝึกงานตำแหน่ง <span class="highlight">Programmer (Full Stack Developer Intern)</span></p>
+      </div>
+
+      <div class="exp-card">
+        <p>พัฒนาหน้าเว็บแบบ <span class="highlight">Responsive</span> โดยสร้างตามใน Figma ที่ทีม UX/UI ได้ออกแบบตาม Requirement ที่ลูกค้าต้องการ</p>
+      </div>
+
+      <div class="exp-card">
+        <p>พัฒนาเว็บแอปพลิเคชันส่วน Frontend ด้วย <span class="highlight">Angular</span></p>
+        <div><span class="tech-tag">Angular</span></div>
+      </div>
+
+      <div class="exp-card">
+        <p>พัฒนาส่วน Backend และเชื่อมระบบต่อกับ Database ด้วย <span class="highlight">Spring Boot</span></p>
+        <div>
+          <span class="tech-tag">Spring Boot</span>
+          <span class="tech-tag">MySQL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Education</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-year">2022 – 2025</div>
+        <div class="edu-school">Kasetsart University</div>
+        <div class="edu-field">Information Technology (IT)</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">2016 – 2021</div>
+        <div class="edu-school">Krathumbaen Wisetsamutthakhun</div>
+        <div class="edu-field">High School · Science-Math</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Tech Stack</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-category">
+        <div class="tech-category-name">Frontend</div>
+        <div class="tech-item">Angular</div>
+        <div class="tech-item">React</div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-name">Backend</div>
+        <div class="tech-item">Spring Boot</div>
+        <div class="tech-item">Node.js</div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-name">Database</div>
+        <div class="tech-item">MySQL</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Certificates</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="cert-list" >
+      <div class="cert-card">
+        <div class="cert-dot"></div>
+        <a class="cert-name" href="https://drive.google.com/file/d/13qNByI6M5tlQXOTl8fq1RZI1xAa67iCp/view?usp=drive_link" style="color: white;">HackerRank</a>
+        <span class="cert-level">CSS Basic</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-dot"></div>
+        <a class="cert-name" href="https://drive.google.com/file/d/1YZipzYRO8dnuT9Hzg6Az7HmPBlsvXZvL/view?usp=drive_link" style="color: white;">HackerRank</a>
+        <span class="cert-level">SQL Advanced</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-dot"></div>
+        <a class="cert-name" href="https://drive.google.com/file/d/1uVYgBjamwSOij-lOjy067x3rxYsHAfMz/view?usp=drive_link" style="color: white;">HackerRank</a>
+        <span class="cert-level">SQL Intermediate</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span><span class="status-dot"></span>Available for opportunities</span>
+    <span>จิรโชติ แสงพิทักษ์ · 2025</span>
+  </footer>
+
+</div>
+</body>
+</html>
