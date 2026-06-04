@@ -10,8 +10,6 @@ Personal resume website built with pure HTML & CSS.
 - CSS3 (CSS Variables, Grid, Flexbox, Animations)
 - Vanilla JavaScript
 
-## 📁 Project Structure
-
 ## 🚀 Deployment
 Deployed on [Vercel](https://vercel.com)
 
