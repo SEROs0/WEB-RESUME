@@ -293,7 +293,7 @@
   /* ── TECH STACK ── */
   .tech-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
 
@@ -417,6 +417,10 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  @media (max-width: 900px) {
+    .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
   @media (max-width: 640px) {
     .header { grid-template-columns: 1fr; }
     .edu-grid { grid-template-columns: 1fr; }
@@ -514,6 +518,16 @@
           <span class="tech-tag">IoT</span>
         </div>
       </div>
+
+      <div class="exp-card">
+        <div class="exp-company">Web Resume · Portfolio</div>
+        <p>สร้าง <span class="highlight">Web Resume</span> ส่วนตัวแบบ Single-page HTML พร้อม Deploy ขึ้น Server</p>
+        <div>
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">Deploy</span>
+        </div>
+      </div>
     </div>
 
     <div class="exp-group">
@@ -579,10 +593,16 @@
         <div class="tech-category-name">Backend</div>
         <div class="tech-item">Spring Boot</div>
         <div class="tech-item">Node.js</div>
+        <div class="tech-item">Express.js</div>
       </div>
       <div class="tech-category">
         <div class="tech-category-name">Database</div>
         <div class="tech-item">MySQL</div>
+      </div>
+      <div class="tech-category">
+        <div class="tech-category-name" style="color: #f472b6;">Tools</div>
+        <div class="tech-item">Git / GitHub</div>
+        <div class="tech-item">Figma</div>
       </div>
     </div>
   </section>
